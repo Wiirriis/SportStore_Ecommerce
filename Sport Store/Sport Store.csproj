@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addUser.aspx" />
     <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\font-awesome.min.css" />
     <Content Include="Css\Hojalogin.css" />
@@ -89,6 +90,13 @@
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addUser.aspx.cs">
+      <DependentUpon>addUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addUser.aspx.designer.cs">
+      <DependentUpon>addUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pruebalogin.aspx.cs">
       <DependentUpon>pruebalogin.aspx</DependentUpon>
@@ -114,7 +122,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

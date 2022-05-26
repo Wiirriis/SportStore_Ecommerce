@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Bienvenidos a Sport´s Store</title
+		<title>Bienvenidos a Sport´s Store</title>
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
@@ -70,9 +70,12 @@
 										<a style="color:#D10024; text-decoration: none" href="pruebalogin.aspx">
 										<asp:Label ID="lblInicioSesion" runat="server">Iniciar sesión</asp:Label>
                                         </a>
+                                    </li>	
+									<li style="width: 100%">
+										<a style="color:#D10024; text-decoration: none" href="addUser.aspx">
+										<asp:Label ID="lblCrearUsuario" runat="server">Crear nuevo usuario</asp:Label>
+                                        </a>
                                     </li>
-                                    <li style="width: 100%"><a style="color:#D10024; text-decoration: none" href="#">Another action</a></li>
-                                    <li style="width: 100%"><a style="color:#D10024; text-decoration: none" href="#">Something else here</a></li>
                                 </ul>
                             </div>
                         </li>

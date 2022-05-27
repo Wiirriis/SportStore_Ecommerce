@@ -48,6 +48,7 @@
 
     </head>
 	<body>
+		<form id="form1" runat="server">
 		<!-- HEADER -->
 		<header>
 			<!-- TOP HEADER -->
@@ -74,6 +75,11 @@
 									<li style="width: 100%">
 										<a style="color:#D10024; text-decoration: none" href="addUser.aspx">
 										<asp:Label ID="lblCrearUsuario" runat="server">Crear nuevo usuario</asp:Label>
+                                        </a>
+                                    </li>
+									<li style="width: 100%">
+										<a style="color:#D10024; text-decoration: none" href="deleteUser.aspx">
+										<asp:Label ID="Label1" runat="server">Eliminar usuario</asp:Label>
                                         </a>
                                     </li>
                                 </ul>
@@ -103,7 +109,6 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
 									<select class="input-select">
 										<option value="0">Todo</option>
 										<option value="1">Hombres</option>
@@ -111,7 +116,6 @@
 									</select>
 									<input class="input" placeholder="Buscar">
 									<button class="search-btn">Search</button>
-								</form>
 							</div>
 						</div>
 						<!-- /SEARCH BAR -->
@@ -196,8 +200,8 @@
 		<!-- /NAVIGATION -->
 
 		
-
-		<!-- SECTION -->
+		
+		<%--<!-- SECTION -->
 		<div class="section">
 			<!-- container -->
 			<div class="container">
@@ -949,8 +953,23 @@
 			</div>
 			<!-- /container -->
 		</div>
-		<!-- /NEWSLETTER -->
-
+		<!-- /NEWSLETTER -->--%>
+		
+		<div style="padding: 16px; width: 100%">
+		    <asp:GridView ID="gvProductos" runat="server" CellPadding="8" ForeColor="#333333" GridLines="None" Width="100%" style="padding: 16px" AllowPaging="True">
+                <AlternatingRowStyle BackColor="White" />
+                <EditRowStyle BackColor="#7C6F57" />
+                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#E3EAEB" />
+                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                <SortedAscendingHeaderStyle BackColor="#246B61" />
+                <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                <SortedDescendingHeaderStyle BackColor="#15524A" />
+            </asp:GridView>
+		</div>
 		<!-- FOOTER -->
 		<footer id="footer">
 			<!-- top footer -->
@@ -1054,6 +1073,8 @@
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+
+	    </form>
 
 	</body>
 </html>

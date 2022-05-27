@@ -1,0 +1,857 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ecommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="articulo">
+          <Key>
+            <PropertyRef Name="id_articulo" />
+          </Key>
+          <Property Name="id_articulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_articulo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="precio_unitario" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="existencia" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="id_proveedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="carrito_de_compra">
+          <Key>
+            <PropertyRef Name="id_carrito_de_compra" />
+          </Key>
+          <Property Name="id_carrito_de_compra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_categoria" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="primer_nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundo_nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="primer_apellido" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundo_apellido" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="dpi" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nit" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefono_cliente" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="email_usuario" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalle_factura">
+          <Key>
+            <PropertyRef Name="id_factura" />
+          </Key>
+          <Property Name="id_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_carrito_de_compra" Type="int" Nullable="false" />
+          <Property Name="num_factura" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="numeric" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="direccion">
+          <Key>
+            <PropertyRef Name="id_direccion" />
+          </Key>
+          <Property Name="id_direccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="numero_de_casa" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="zona" Type="int" Nullable="false" />
+          <Property Name="departamento" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="id_empleado" />
+          </Key>
+          <Property Name="id_empleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="primer_nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundo_nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="primer_apellido" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundo_apellido" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="puesto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="telefono_empleado" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email_empleado" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="sueldo" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="factura">
+          <Key>
+            <PropertyRef Name="num_factura" />
+          </Key>
+          <Property Name="num_factura" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_proveedor" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="contacto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="email_proveedor" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ecommerce.dbo.ubicacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ubicacion">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+            <PropertyRef Name="id_direccion" />
+            <PropertyRef Name="id_empleado" />
+          </Key>
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="id_direccion" Type="int" Nullable="false" />
+          <Property Name="id_empleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="email_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email_usuario" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="pass_usuario" Type="varbinary" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__articulo__id_pro__29572725">
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="articulo">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__carrito_d__id_ar__38996AB5">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="id_articulo" />
+            </Principal>
+            <Dependent Role="carrito_de_compra">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__carrito_d__id_cl__398D8EEE">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="carrito_de_compra">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__categoria__id_ar__2C3393D0">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="categoria" Type="Self.categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="id_articulo" />
+            </Principal>
+            <Dependent Role="categoria">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_f__id_ca__3C69FB99">
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrito_de_compra">
+              <PropertyRef Name="id_carrito_de_compra" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="id_carrito_de_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_f__num_f__3D5E1FD2">
+          <End Role="factura" Type="Self.factura" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="num_factura" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="num_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__factura__id_clie__35BCFE0A">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_cl__4316F928">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_di__440B1D61">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="id_direccion" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_direccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_em__44FF419A">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="id_empleado" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+              <PropertyRef Name="email_usuario" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="id_usuario" />
+              <PropertyRef Name="email_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AgregarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+          <Parameter Name="Patron" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_TraerProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+          <Parameter Name="Patron" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ecommerceModelStoreContainer">
+          <EntitySet Name="articulo" EntityType="Self.articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="carrito_de_compra" EntityType="Self.carrito_de_compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_factura" EntityType="Self.detalle_factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="direccion" EntityType="Self.direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="factura" EntityType="Self.factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ubicacion" EntityType="Self.ubicacion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ubicacion].[id_cliente] AS [id_cliente], 
+    [ubicacion].[id_direccion] AS [id_direccion], 
+    [ubicacion].[id_empleado] AS [id_empleado]
+    FROM [dbo].[ubicacion] AS [ubicacion]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__articulo__id_pro__29572725" Association="Self.FK__articulo__id_pro__29572725">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__carrito_d__id_ar__38996AB5" Association="Self.FK__carrito_d__id_ar__38996AB5">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__carrito_d__id_cl__398D8EEE" Association="Self.FK__carrito_d__id_cl__398D8EEE">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__categoria__id_ar__2C3393D0" Association="Self.FK__categoria__id_ar__2C3393D0">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="categoria" EntitySet="categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_f__id_ca__3C69FB99" Association="Self.FK__detalle_f__id_ca__3C69FB99">
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_f__num_f__3D5E1FD2" Association="Self.FK__detalle_f__num_f__3D5E1FD2">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__factura__id_clie__35BCFE0A" Association="Self.FK__factura__id_clie__35BCFE0A">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_cl__4316F928" Association="Self.FK__ubicacion__id_cl__4316F928">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_di__440B1D61" Association="Self.FK__ubicacion__id_di__440B1D61">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_em__44FF419A" Association="Self.FK__ubicacion__id_em__44FF419A">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario" Association="Self.fk_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ecommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="articulo">
+          <Key>
+            <PropertyRef Name="id_articulo" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_articulo" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="existencia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="proveedor" Relationship="Self.FK__articulo__id_pro__29572725" FromRole="articulo" ToRole="proveedor" />
+          <NavigationProperty Name="carrito_de_compra" Relationship="Self.FK__carrito_d__id_ar__38996AB5" FromRole="articulo" ToRole="carrito_de_compra" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK__categoria__id_ar__2C3393D0" FromRole="articulo" ToRole="categoria" />
+        </EntityType>
+        <EntityType Name="carrito_de_compra">
+          <Key>
+            <PropertyRef Name="id_carrito_de_compra" />
+          </Key>
+          <Property Name="id_carrito_de_compra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="articulo" Relationship="Self.FK__carrito_d__id_ar__38996AB5" FromRole="carrito_de_compra" ToRole="articulo" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__carrito_d__id_cl__398D8EEE" FromRole="carrito_de_compra" ToRole="cliente" />
+          <NavigationProperty Name="detalle_factura" Relationship="Self.FK__detalle_f__id_ca__3C69FB99" FromRole="carrito_de_compra" ToRole="detalle_factura" />
+        </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_categoria" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="articulo" Relationship="Self.FK__categoria__id_ar__2C3393D0" FromRole="categoria" ToRole="articulo" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="primer_nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primer_apellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_apellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dpi" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nit" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_cliente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="email_usuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="carrito_de_compra" Relationship="Self.FK__carrito_d__id_cl__398D8EEE" FromRole="cliente" ToRole="carrito_de_compra" />
+          <NavigationProperty Name="factura" Relationship="Self.FK__factura__id_clie__35BCFE0A" FromRole="cliente" ToRole="factura" />
+          <NavigationProperty Name="ubicacion" Relationship="Self.FK__ubicacion__id_cl__4316F928" FromRole="cliente" ToRole="ubicacion" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_usuario" FromRole="cliente" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="detalle_factura">
+          <Key>
+            <PropertyRef Name="id_factura" />
+          </Key>
+          <Property Name="id_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_carrito_de_compra" Type="Int32" Nullable="false" />
+          <Property Name="num_factura" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Decimal" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="carrito_de_compra" Relationship="Self.FK__detalle_f__id_ca__3C69FB99" FromRole="detalle_factura" ToRole="carrito_de_compra" />
+          <NavigationProperty Name="factura" Relationship="Self.FK__detalle_f__num_f__3D5E1FD2" FromRole="detalle_factura" ToRole="factura" />
+        </EntityType>
+        <EntityType Name="direccion">
+          <Key>
+            <PropertyRef Name="id_direccion" />
+          </Key>
+          <Property Name="id_direccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="calle" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero_de_casa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="zona" Type="Int32" Nullable="false" />
+          <Property Name="departamento" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ubicacion" Relationship="Self.FK__ubicacion__id_di__440B1D61" FromRole="direccion" ToRole="ubicacion" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="id_empleado" />
+          </Key>
+          <Property Name="id_empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="primer_nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primer_apellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_apellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="puesto" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_empleado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_empleado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sueldo" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="ubicacion" Relationship="Self.FK__ubicacion__id_em__44FF419A" FromRole="empleado" ToRole="ubicacion" />
+        </EntityType>
+        <EntityType Name="factura">
+          <Key>
+            <PropertyRef Name="num_factura" />
+          </Key>
+          <Property Name="num_factura" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__factura__id_clie__35BCFE0A" FromRole="factura" ToRole="cliente" />
+          <NavigationProperty Name="detalle_factura" Relationship="Self.FK__detalle_f__num_f__3D5E1FD2" FromRole="factura" ToRole="detalle_factura" />
+        </EntityType>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_proveedor" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contacto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_proveedor" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="articulo" Relationship="Self.FK__articulo__id_pro__29572725" FromRole="proveedor" ToRole="articulo" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="email_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email_usuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass_usuario" Type="Binary" MaxLength="500" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.fk_usuario" FromRole="usuario" ToRole="cliente" />
+        </EntityType>
+        <EntityType Name="ubicacion">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+            <PropertyRef Name="id_direccion" />
+            <PropertyRef Name="id_empleado" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="id_direccion" Type="Int32" Nullable="false" />
+          <Property Name="id_empleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__ubicacion__id_cl__4316F928" FromRole="ubicacion" ToRole="cliente" />
+          <NavigationProperty Name="direccion" Relationship="Self.FK__ubicacion__id_di__440B1D61" FromRole="ubicacion" ToRole="direccion" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__ubicacion__id_em__44FF419A" FromRole="ubicacion" ToRole="empleado" />
+        </EntityType>
+        <Association Name="FK__articulo__id_pro__29572725">
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="articulo">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__carrito_d__id_ar__38996AB5">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="id_articulo" />
+            </Principal>
+            <Dependent Role="carrito_de_compra">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__categoria__id_ar__2C3393D0">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="categoria" Type="Self.categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="id_articulo" />
+            </Principal>
+            <Dependent Role="categoria">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__carrito_d__id_cl__398D8EEE">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="carrito_de_compra">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_f__id_ca__3C69FB99">
+          <End Role="carrito_de_compra" Type="Self.carrito_de_compra" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrito_de_compra">
+              <PropertyRef Name="id_carrito_de_compra" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="id_carrito_de_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__factura__id_clie__35BCFE0A">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_cl__4316F928">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+              <PropertyRef Name="email_usuario" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="id_usuario" />
+              <PropertyRef Name="email_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_f__num_f__3D5E1FD2">
+          <End Role="factura" Type="Self.factura" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="num_factura" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="num_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_di__440B1D61">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="id_direccion" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_direccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__id_em__44FF419A">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="id_empleado" />
+            </Principal>
+            <Dependent Role="ubicacion">
+              <PropertyRef Name="id_empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommerceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articulo" EntityType="Self.articulo" />
+          <EntitySet Name="carrito_de_compra" EntityType="Self.carrito_de_compra" />
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" />
+          <EntitySet Name="detalle_factura" EntityType="Self.detalle_factura" />
+          <EntitySet Name="direccion" EntityType="Self.direccion" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="factura" EntityType="Self.factura" />
+          <EntitySet Name="proveedor" EntityType="Self.proveedor" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="ubicacion" EntityType="Self.ubicacion" />
+          <AssociationSet Name="FK__articulo__id_pro__29572725" Association="Self.FK__articulo__id_pro__29572725">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__carrito_d__id_ar__38996AB5" Association="Self.FK__carrito_d__id_ar__38996AB5">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__categoria__id_ar__2C3393D0" Association="Self.FK__categoria__id_ar__2C3393D0">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="categoria" EntitySet="categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK__carrito_d__id_cl__398D8EEE" Association="Self.FK__carrito_d__id_cl__398D8EEE">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_f__id_ca__3C69FB99" Association="Self.FK__detalle_f__id_ca__3C69FB99">
+            <End Role="carrito_de_compra" EntitySet="carrito_de_compra" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__factura__id_clie__35BCFE0A" Association="Self.FK__factura__id_clie__35BCFE0A">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_cl__4316F928" Association="Self.FK__ubicacion__id_cl__4316F928">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario" Association="Self.fk_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_f__num_f__3D5E1FD2" Association="Self.FK__detalle_f__num_f__3D5E1FD2">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_di__440B1D61" Association="Self.FK__ubicacion__id_di__440B1D61">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__id_em__44FF419A" Association="Self.FK__ubicacion__id_em__44FF419A">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AgregarUsuario">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+            <Parameter Name="Patron" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_TraerProductos" ReturnType="Collection(ecommerceModel.SP_TraerProductos_Result)" />
+          <FunctionImport Name="SP_ValidarUsuario" ReturnType="Collection(ecommerceModel.SP_ValidarUsuario_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+            <Parameter Name="Patron" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_TraerProductos_Result">
+          <Property Type="Int32" Name="id_articulo" Nullable="false" />
+          <Property Type="String" Name="nombre_articulo" Nullable="false" MaxLength="60" />
+          <Property Type="Decimal" Name="precio_unitario" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="existencia" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="id_proveedor" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_ValidarUsuario_Result">
+          <Property Type="Int32" Name="id_usuario" Nullable="false" />
+          <Property Type="String" Name="email_usuario" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="nombre_usuario" Nullable="false" MaxLength="60" />
+          <Property Type="Binary" Name="pass_usuario" Nullable="false" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ecommerceModelStoreContainer" CdmEntityContainer="ecommerceEntities">
+          <EntitySetMapping Name="articulo">
+            <EntityTypeMapping TypeName="ecommerceModel.articulo">
+              <MappingFragment StoreEntitySet="articulo">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="nombre_articulo" ColumnName="nombre_articulo" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="existencia" ColumnName="existencia" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carrito_de_compra">
+            <EntityTypeMapping TypeName="ecommerceModel.carrito_de_compra">
+              <MappingFragment StoreEntitySet="carrito_de_compra">
+                <ScalarProperty Name="id_carrito_de_compra" ColumnName="id_carrito_de_compra" />
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="ecommerceModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="nombre_categoria" ColumnName="nombre_categoria" />
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cliente">
+            <EntityTypeMapping TypeName="ecommerceModel.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="primer_nombre" ColumnName="primer_nombre" />
+                <ScalarProperty Name="segundo_nombre" ColumnName="segundo_nombre" />
+                <ScalarProperty Name="primer_apellido" ColumnName="primer_apellido" />
+                <ScalarProperty Name="segundo_apellido" ColumnName="segundo_apellido" />
+                <ScalarProperty Name="dpi" ColumnName="dpi" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="telefono_cliente" ColumnName="telefono_cliente" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_factura">
+            <EntityTypeMapping TypeName="ecommerceModel.detalle_factura">
+              <MappingFragment StoreEntitySet="detalle_factura">
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="id_carrito_de_compra" ColumnName="id_carrito_de_compra" />
+                <ScalarProperty Name="num_factura" ColumnName="num_factura" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="direccion">
+            <EntityTypeMapping TypeName="ecommerceModel.direccion">
+              <MappingFragment StoreEntitySet="direccion">
+                <ScalarProperty Name="id_direccion" ColumnName="id_direccion" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero_de_casa" ColumnName="numero_de_casa" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="ecommerceModel.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+                <ScalarProperty Name="primer_nombre" ColumnName="primer_nombre" />
+                <ScalarProperty Name="segundo_nombre" ColumnName="segundo_nombre" />
+                <ScalarProperty Name="primer_apellido" ColumnName="primer_apellido" />
+                <ScalarProperty Name="segundo_apellido" ColumnName="segundo_apellido" />
+                <ScalarProperty Name="puesto" ColumnName="puesto" />
+                <ScalarProperty Name="telefono_empleado" ColumnName="telefono_empleado" />
+                <ScalarProperty Name="email_empleado" ColumnName="email_empleado" />
+                <ScalarProperty Name="sueldo" ColumnName="sueldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="factura">
+            <EntityTypeMapping TypeName="ecommerceModel.factura">
+              <MappingFragment StoreEntitySet="factura">
+                <ScalarProperty Name="num_factura" ColumnName="num_factura" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedor">
+            <EntityTypeMapping TypeName="ecommerceModel.proveedor">
+              <MappingFragment StoreEntitySet="proveedor">
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="email_proveedor" ColumnName="email_proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="ecommerceModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="pass_usuario" ColumnName="pass_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ubicacion">
+            <EntityTypeMapping TypeName="ecommerceModel.ubicacion">
+              <MappingFragment StoreEntitySet="ubicacion">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_direccion" ColumnName="id_direccion" />
+                <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AgregarUsuario" FunctionName="ecommerceModel.Store.SP_AgregarUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_TraerProductos" FunctionName="ecommerceModel.Store.SP_TraerProductos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerceModel.SP_TraerProductos_Result">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="nombre_articulo" ColumnName="nombre_articulo" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="existencia" ColumnName="existencia" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ValidarUsuario" FunctionName="ecommerceModel.Store.SP_ValidarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ecommerceModel.SP_ValidarUsuario_Result">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="pass_usuario" ColumnName="pass_usuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

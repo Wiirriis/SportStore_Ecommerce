@@ -11,7 +11,7 @@ namespace Sport_Store
 {
 
 
-    public partial class addUser
+    public partial class deleteUser
     {
 
         /// <summary>
@@ -51,42 +51,6 @@ namespace Sport_Store
         protected global::System.Web.UI.WebControls.TextBox tbUsuario;
 
         /// <summary>
-        /// Control lblPassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPassword;
-
-        /// <summary>
-        /// Control tbPassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPassword;
-
-        /// <summary>
-        /// Control lblEmail.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
-
-        /// <summary>
-        /// Control tbEmail.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmail;
-
-        /// <summary>
         /// Control lblError.
         /// </summary>
         /// <remarks>
@@ -105,13 +69,13 @@ namespace Sport_Store
         protected global::System.Web.UI.WebControls.Label lblSuccess;
 
         /// <summary>
-        /// Control BtnIngresar.
+        /// Control BtnDelete.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnIngresar;
+        protected global::System.Web.UI.WebControls.Button BtnDelete;
 
         /// <summary>
         /// Control BtnCerrar.

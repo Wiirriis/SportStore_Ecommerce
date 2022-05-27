@@ -43,7 +43,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -78,6 +86,7 @@
     <Content Include="Css\style.css" />
     <Content Include="Css\Estilos.css" />
     <Content Include="Css\StyleSheet1.css" />
+    <Content Include="deleteUser.aspx" />
     <Content Include="Imagenes\camiseta.png" />
     <Content Include="Imagenes\Pansmujer.png" />
     <Content Include="Imagenes\tenis.png" />
@@ -85,6 +94,16 @@
     <Content Include="Imagenes\zapatos.png" />
     <Content Include="Imagenes\Fondo1.png" />
     <Content Include="Imagenes\Logo.jpg" />
+    <Content Include="ProductosModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProductosModel.Context.cs</LastGenOutput>
+      <DependentUpon>ProductosModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="ProductosModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProductosModel.edmx</DependentUpon>
+      <LastGenOutput>ProductosModel.cs</LastGenOutput>
+    </Content>
     <Content Include="pruebalogin.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
@@ -97,13 +116,75 @@
     <Compile Include="addUser.aspx.designer.cs">
       <DependentUpon>addUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="articulo.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="carrito_de_compra.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="categoria.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cliente.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\ProductosAdmin.cs" />
+    <Compile Include="deleteUser.aspx.cs">
+      <DependentUpon>deleteUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="deleteUser.aspx.designer.cs">
+      <DependentUpon>deleteUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="detalle_factura.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="direccion.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="empleado.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="factura.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductosModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductosModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proveedor.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="pruebalogin.aspx.cs">
       <DependentUpon>pruebalogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pruebalogin.aspx.designer.cs">
       <DependentUpon>pruebalogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SP_TraerProductos_Result.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ValidarUsuario_Result.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ubicacion.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuario.cs">
+      <DependentUpon>ProductosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -115,12 +196,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EntityDeploy Include="ProductosModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProductosModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ProductosModel.edmx.diagram">
+      <DependentUpon>ProductosModel.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
